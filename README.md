@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🛒 বাজার দর (BazarDor)
 
-## Getting Started
+বাজার দর is a small web app to check today's market price of daily need items in Bangladesh — rice, dal, oil, vegetables, fish, meat, egg-milk and spices. You can see which items got costly today, which got cheaper, and compare the price of one item across 12 different bazars of 6 divisions.
 
-First, run the development server:
+All prices, dates and percentages are shown in Bangla numbers.
+
+**Live site:** _coming soon_
+
+---
+
+## ✨ Features
+
+1. **Live price ticker** — a scrolling strip under the navbar with every item's price and today's ▲/▼ change.
+2. **Today's risers and fallers** — home page shows top 6 items whose price went up and top 6 that went down.
+3. **Category pages** — 8 categories (চাল, ডাল, তেল, সবজি, মাছ, মাংস, ডিম-দুধ, মসলা) with active link in navbar, skeleton loading and a friendly empty state for wrong category.
+4. **Sort by price** — `সাজান` dropdown (ডিফল্ট / কম থেকে বেশি / বেশি থেকে কম). Sorting uses the real number, so Bangla digits never break the order.
+5. **Search and filter** — search an item by name and filter by category chips on the home page.
+6. **Bazar wise price details (login needed)** — min, max and average price, plus a table of every bazar with its division.
+7. **Authentication with BetterAuth** — email/password sign up and sign in, Google and GitHub login, toast message for every action.
+8. **Profile and update info** — see your profile, sign out, and change your name from a separate update page.
+9. **Fully responsive** — works on mobile, tablet and desktop. Custom 404 page for any wrong link.
+
+## 🛠️ Technologies Used
+
+- **Next.js 16** (App Router) + **TypeScript**
+- **Tailwind CSS 4** + **DaisyUI 5**
+- **BetterAuth** with **MongoDB** adapter
+- **react-hot-toast** for notifications
+- **react-icons**, Hind Siliguri font (fontsource)
+- Deployed on **Vercel**
+
+## 📡 Data
+
+Prices come from the assignment API:
+
+```
+https://api.api-store.workers.dev/api/bazardor
+https://api.abcz.workers.dev/api/bazardor   (backup)
+```
+
+If the first one fails, the app tries the second one.
+
+## 🚀 Run Locally
+
+```bash
+git clone https://github.com/Md-Foisal/bazardor.git
+cd bazardor
+npm install
+```
+
+Make a `.env.local` file:
+
+```env
+BETTER_AUTH_SECRET=any_long_random_text
+BETTER_AUTH_URL=http://localhost:3000
+MONGODB_URI=your_mongodb_connection_string
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+GITHUB_CLIENT_ID=
+GITHUB_CLIENT_SECRET=
+```
+
+Then run:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📁 Pages
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Route | What it shows |
+| --- | --- |
+| `/` | Hero, today's risers and fallers, all products |
+| `/category/[slug]` | Products of one category with sort |
+| `/product/[slug]` | Bazar wise price details (protected) |
+| `/signin`, `/signup` | Login and registration |
+| `/profile` | My profile (protected) |
+| `/profile/update` | Update name (protected) |
+| `/privacy` | Simple privacy policy (needed for Google login) |
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Made by **Md. Foisal** — B14 Assignment 07
