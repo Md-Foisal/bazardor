@@ -1,6 +1,7 @@
 import type { Product } from "@/lib/types";
 import { toBn } from "@/lib/bn";
 import ProductCard from "./ProductCard";
+import { GridSkeleton } from "./Skeletons";
 
 export default function AllProducts({ products }: { products: Product[] | null }) {
   return (
@@ -17,7 +18,12 @@ export default function AllProducts({ products }: { products: Product[] | null }
           </div>
         </>
       ) : (
-        <p className="text-sm">Loading…</p>
+        <>
+          <p className="flex items-center gap-2 text-sm">
+            <span className="loading loading-spinner loading-xs text-primary" /> Loading…
+          </p>
+          <GridSkeleton count={9} />
+        </>
       )}
     </section>
   );
