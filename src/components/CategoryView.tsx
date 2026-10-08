@@ -5,6 +5,7 @@ import type { SortType } from "@/lib/types";
 import { getCategories, getProductsByCategory } from "@/lib/api";
 import { sortProducts, toBn } from "@/lib/bn";
 import { useApiData } from "@/lib/useApiData";
+import EmptyState from "./EmptyState";
 import ProductCard from "./ProductCard";
 import SortSelect from "./SortSelect";
 import { GridSkeleton } from "./Skeletons";
@@ -45,11 +46,13 @@ export default function CategoryView({ slug }: { slug: string }) {
 
   const products = items.data ?? [];
 
+  // wrong slug or no product in this category
   if (!category || products.length === 0) {
     return (
-      <div className="rounded-2xl border border-base-300 bg-base-100 p-10 text-center">
-        <p className="font-semibold">এই ক্যাটাগরিতে কোনো পণ্য পাওয়া যায়নি</p>
-      </div>
+      <EmptyState
+        title="এই ক্যাটাগরিতে কোনো পণ্য নেই"
+        message="ক্যাটাগরিটি খুঁজে পাওয়া যায়নি অথবা এখানে এখনো কোনো পণ্য যোগ হয়নি।"
+      />
     );
   }
 
