@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Toaster } from "react-hot-toast";
 import "@fontsource/hind-siliguri/400.css";
 import "@fontsource/hind-siliguri/500.css";
@@ -8,6 +9,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Ticker from "@/components/Ticker";
 import Footer from "@/components/Footer";
+import AuthNotice from "@/components/AuthNotice";
 
 export const metadata: Metadata = {
   title: "বাজার দর — আজকের বাজারের দাম এক নজরে",
@@ -28,6 +30,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           position="top-center"
           toastOptions={{ style: { fontFamily: "var(--font-sans)", fontSize: "14px" } }}
         />
+        <Suspense fallback={null}>
+          <AuthNotice />
+        </Suspense>
       </body>
     </html>
   );
