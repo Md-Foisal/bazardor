@@ -4,6 +4,7 @@ import "@fontsource/hind-siliguri/500.css";
 import "@fontsource/hind-siliguri/600.css";
 import "@fontsource/hind-siliguri/700.css";
 import "./globals.css";
+import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
   title: "বাজার দর — আজকের বাজারের দাম এক নজরে",
@@ -15,6 +16,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="bn" data-theme="bazar">
       <body className="flex min-h-screen flex-col bg-base-200 text-base-content antialiased">
+        <Navbar />
         <main className="flex-1">{children}</main>
       </body>
     </html>
