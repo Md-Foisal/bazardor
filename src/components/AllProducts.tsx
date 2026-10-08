@@ -1,25 +1,28 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { Product } from "@/lib/types";
+import type { Product, SortType } from "@/lib/types";
 import { CATEGORIES } from "@/lib/categories";
-import { toBn } from "@/lib/bn";
+import { sortProducts, toBn } from "@/lib/bn";
 import ProductCard from "./ProductCard";
+import SortSelect from "./SortSelect";
 import { GridSkeleton } from "./Skeletons";
 
 export default function AllProducts({ products }: { products: Product[] | null }) {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("all");
+  const [sort, setSort] = useState<SortType>("default");
 
   const list = useMemo(() => {
     if (!products) return [];
     const text = search.trim().toLowerCase();
-    return products.filter((p) => {
+    const filtered = products.filter((p) => {
       const matchCat = category === "all" || p.category === category;
       const matchText = !text || p.nameBn.includes(text) || p.slug.includes(text);
       return matchCat && matchText;
     });
-  }, [products, search, category]);
+    return sortProducts(filtered, sort);
+  }, [products, search, category, sort]);
 
   const chip = (active: boolean) =>
     `btn btn-xs h-6 min-h-6 rounded-xl px-2.5 font-medium ${active ? "btn-primary" : "btn-ghost bg-base-200"}`;
@@ -55,6 +58,9 @@ export default function AllProducts({ products }: { products: Product[] | null }
           ))}
         </div>
 
+        <div className="lg:ml-auto">
+          <SortSelect value={sort} onChange={setSort} />
+        </div>
       </div>
 
       {products ? (

@@ -1,4 +1,4 @@
-import type { Unit } from "./types";
+import type { Product, SortType, Unit } from "./types";
 
 const bnDigits = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
 
@@ -51,4 +51,17 @@ export function bnDate(date = new Date()) {
     year: "numeric",
     timeZone: "Asia/Dhaka",
   }).format(date);
+}
+
+// price can come as number or as bangla text, always get a real number
+function priceOf(p: Product) {
+  const value: number | string = p.today;
+  return typeof value === "number" ? value : fromBn(value);
+}
+
+export function sortProducts(list: Product[], sort: SortType) {
+  if (sort === "default") return list;
+  return [...list].sort((a, b) =>
+    sort === "low" ? priceOf(a) - priceOf(b) : priceOf(b) - priceOf(a)
+  );
 }
