@@ -1,10 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { CATEGORIES } from "@/lib/categories";
 import BanglaDate from "./BanglaDate";
 
 export default function Navbar() {
+  const pathname = usePathname();
+
   return (
     <header className="border-b border-base-300 bg-base-100">
       <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-3">
@@ -31,11 +34,16 @@ export default function Navbar() {
       <nav className="border-t border-base-200" aria-label="ক্যাটাগরি">
         <ul className="no-scrollbar mx-auto flex max-w-6xl gap-1 overflow-x-auto px-4 py-2">
           {CATEGORIES.map((cat) => {
+            const href = `/category/${cat.slug}`;
+            const active = pathname === href;
             return (
               <li key={cat.slug} className="shrink-0">
                 <Link
-                  href={`/category/${cat.slug}`}
-                  className="btn btn-ghost btn-sm h-8 min-h-8 gap-1.5 rounded-lg px-3 text-xs font-semibold"
+                  href={href}
+                  aria-current={active ? "page" : undefined}
+                  className={`btn btn-sm h-8 min-h-8 gap-1.5 rounded-lg px-3 text-xs font-semibold ${
+                    active ? "btn-primary" : "btn-ghost"
+                  }`}
                 >
                   <span>{cat.icon}</span>
                   <span>{cat.nameBn}</span>
