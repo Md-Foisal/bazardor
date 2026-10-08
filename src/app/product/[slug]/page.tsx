@@ -19,6 +19,12 @@ export default async function ProductPage({ params }: PageProps<"/product/[slug]
   const product = await getProductBySlug(slug);
   if (!product) notFound();
 
+  const { markets } = product;
+  const lowest = Math.min(...markets.map((m) => m.min));
+  const highest = Math.max(...markets.map((m) => m.max));
+  // average of every market's middle price
+  const average = Math.round(markets.reduce((sum, m) => sum + (m.min + m.max) / 2, 0) / markets.length);
+
   const diff = product.today - product.yesterday;
   const unit = unitBn(product.unit);
 
@@ -72,6 +78,17 @@ export default async function ProductPage({ params }: PageProps<"/product/[slug]
         </div>
       </section>
 
+      <section className="flex flex-col gap-6 rounded-2xl border border-base-300 bg-base-100 p-5">
+        <div className="flex flex-col gap-3">
+          <h2 className="text-xl leading-7 font-bold">দামের সারসংক্ষেপ</h2>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+            <Stat label="সর্বনিম্ন দাম" value={lowest} color="text-success" note="সবচেয়ে কম দামের বাজার" />
+            <Stat label="সর্বাধিক দাম" value={highest} color="text-error" note="সবচেয়ে বেশি দামের বাজার" />
+            <Stat label="গড় দাম" value={average} color="text-primary" note={`প্রতি ${unit}-এর হিসাবে`} />
+          </div>
+        </div>
+      </section>
+
       <div className="flex flex-wrap gap-2">
         <Link href="/" className="btn btn-outline btn-sm sm:btn-md border-base-300 bg-base-100">
           ← সব পণ্য
@@ -84,3 +101,14 @@ export default async function ProductPage({ params }: PageProps<"/product/[slug]
   );
 }
 
+function Stat({ label, value, color, note }: { label: string; value: number; color: string; note: string }) {
+  return (
+    <div className="rounded-2xl border border-base-300 p-4">
+      <p className="text-xs">{label}</p>
+      <p className={`leading-8 ${color}`}>
+        <span className="text-2xl font-bold">{bnPrice(value)}</span> <span className="text-sm">টাকা</span>
+      </p>
+      <p className="text-xs">{note}</p>
+    </div>
+  );
+}
