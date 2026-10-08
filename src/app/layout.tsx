@@ -5,6 +5,7 @@ import "@fontsource/hind-siliguri/600.css";
 import "@fontsource/hind-siliguri/700.css";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import Ticker from "@/components/Ticker";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
@@ -18,6 +19,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="bn" data-theme="bazar">
       <body className="flex min-h-screen flex-col bg-base-200 text-base-content antialiased">
         <Navbar />
+        <Ticker />
         <main className="flex-1">{children}</main>
         <Footer />
       </body>

@@ -61,6 +61,30 @@ body {
   box-shadow: 0 4px 1.5px rgba(5, 137, 62, 0.3), 0 3px 1px rgba(5, 137, 62, 0.3);
 }
 
+/* price ticker - list is printed twice so -50% gives a loop */
+@keyframes ticker-move {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.ticker-track {
+  animation: ticker-move 70s linear infinite;
+}
+
+.ticker-wrap:hover .ticker-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track {
+    animation-duration: 200s;
+  }
+}
+
 /* hide scrollbar for the category chip row on small screen */
 .no-scrollbar {
   scrollbar-width: none;
