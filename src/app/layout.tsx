@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Toaster } from "react-hot-toast";
 import "@fontsource/hind-siliguri/400.css";
 import "@fontsource/hind-siliguri/500.css";
 import "@fontsource/hind-siliguri/600.css";
@@ -22,6 +23,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Ticker />
         <main className="flex-1">{children}</main>
         <Footer />
+
+        <Toaster
+          position="top-center"
+          toastOptions={{ style: { fontFamily: "var(--font-sans)", fontSize: "14px" } }}
+        />
       </body>
     </html>
   );
