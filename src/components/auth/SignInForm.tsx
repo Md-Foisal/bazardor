@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
+import SocialLogin from "./SocialLogin";
 
 // only allow our own paths in ?next=, not other sites
 function safeNext(value: string | null) {
@@ -82,6 +83,8 @@ export default function SignInForm() {
         {loading && <span className="loading loading-spinner loading-sm" />}
         সাইন ইন
       </button>
+
+      <SocialLogin next={next} />
 
       <p className="text-center text-sm">
         অ্যাকাউন্ট নেই?{" "}

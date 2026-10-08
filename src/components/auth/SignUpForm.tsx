@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
+import SocialLogin from "./SocialLogin";
 
 const empty = { name: "", email: "", password: "", confirm: "" };
 
@@ -79,6 +80,8 @@ export default function SignUpForm() {
         {loading && <span className="loading loading-spinner loading-sm" />}
         অ্যাকাউন্ট তৈরি করুন
       </button>
+
+      <SocialLogin />
 
       <p className="text-center text-sm">
         অ্যাকাউন্ট আছে?{" "}
