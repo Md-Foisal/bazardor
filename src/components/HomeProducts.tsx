@@ -3,6 +3,7 @@
 import { getProducts } from "@/lib/api";
 import { useApiData } from "@/lib/useApiData";
 import AllProducts from "./AllProducts";
+import PriceMovers from "./PriceMovers";
 
 export default function HomeProducts() {
   const { data: products, error } = useApiData("products", getProducts);
@@ -15,5 +16,11 @@ export default function HomeProducts() {
     );
   }
 
-  return <AllProducts products={products} />;
+  return (
+    <>
+      <PriceMovers type="up" products={products} />
+      <PriceMovers type="down" products={products} />
+      <AllProducts products={products} />
+    </>
+  );
 }
