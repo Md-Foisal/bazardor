@@ -3,8 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProductBySlug } from "@/lib/api";
 import { requireSession } from "@/lib/session";
-import { bnPrice, unitBn, perUnit } from "@/lib/bn";
+import { bnPrice, toBn, unitBn, perUnit } from "@/lib/bn";
 import ChangeBadge from "@/components/ChangeBadge";
+import MarketTable from "@/components/MarketTable";
 
 export async function generateMetadata({ params }: PageProps<"/product/[slug]">): Promise<Metadata> {
   const { slug } = await params;
@@ -86,6 +87,12 @@ export default async function ProductPage({ params }: PageProps<"/product/[slug]
             <Stat label="সর্বাধিক দাম" value={highest} color="text-error" note="সবচেয়ে বেশি দামের বাজার" />
             <Stat label="গড় দাম" value={average} color="text-primary" note={`প্রতি ${unit}-এর হিসাবে`} />
           </div>
+        </div>
+
+        <div className="flex flex-col gap-3">
+          <h2 className="text-xl leading-7 font-bold">বাজারভিত্তিক আজকের দাম</h2>
+          <MarketTable markets={markets} />
+          <p className="text-xs opacity-70">মোট {toBn(markets.length)}টি বাজারের দাম দেখানো হচ্ছে</p>
         </div>
       </section>
 
