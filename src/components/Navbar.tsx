@@ -3,10 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { CATEGORIES } from "@/lib/categories";
+import { authClient } from "@/lib/auth-client";
 import BanglaDate from "./BanglaDate";
+import UserMenu from "./UserMenu";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const { data: session, isPending } = authClient.useSession();
 
   return (
     <header className="border-b border-base-300 bg-base-100">
@@ -22,12 +25,20 @@ export default function Navbar() {
         </Link>
 
         <div className="ml-auto flex shrink-0 items-center gap-2">
-          <Link href="/signin" className="btn btn-ghost btn-sm sm:btn-md font-semibold">
-            সাইন ইন
-          </Link>
-          <Link href="/signup" className="btn btn-primary btn-bazar btn-sm sm:btn-md font-semibold">
-            সাইন আপ
-          </Link>
+          {isPending ? (
+            <div className="skeleton h-9 w-28 sm:h-10 sm:w-40" />
+          ) : session ? (
+            <UserMenu user={session.user} />
+          ) : (
+            <>
+              <Link href="/signin" className="btn btn-ghost btn-sm sm:btn-md font-semibold">
+                সাইন ইন
+              </Link>
+              <Link href="/signup" className="btn btn-primary btn-bazar btn-sm sm:btn-md font-semibold">
+                সাইন আপ
+              </Link>
+            </>
+          )}
         </div>
       </div>
 
