@@ -4,7 +4,7 @@
 
 All prices, dates and percentages are shown in Bangla numbers.
 
-**Live site:** _coming soon_
+**Live site:** https://bazardor-foisal.vercel.app
 
 ---
 
@@ -14,7 +14,7 @@ All prices, dates and percentages are shown in Bangla numbers.
 2. **Today's risers and fallers** — home page shows top 6 items whose price went up and top 6 that went down.
 3. **Category pages** — 8 categories (চাল, ডাল, তেল, সবজি, মাছ, মাংস, ডিম-দুধ, মসলা) with active link in navbar, skeleton loading and a friendly empty state for wrong category.
 4. **Sort by price** — `সাজান` dropdown (ডিফল্ট / কম থেকে বেশি / বেশি থেকে কম). Sorting uses the real number, so Bangla digits never break the order.
-5. **Search and filter** — search an item by name and filter by category chips on the home page.
+5. **Protected product page** — if you are not logged in, it sends you to sign in and after login brings you back to the same product.
 6. **Bazar wise price details (login needed)** — min, max and average price, plus a table of every bazar with its division.
 7. **Authentication with BetterAuth** — email/password sign up and sign in, Google and GitHub login, toast message for every action.
 8. **Profile and update info** — see your profile, sign out, and change your name from a separate update page.
